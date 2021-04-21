@@ -1,21 +1,23 @@
 let lblMessage = document.querySelector('#lblMessage') 
 let lblResponse = document.querySelector('#lblResponse') 
+let lblName = document.querySelector('#lblName') 
 
 
-const socket = new WebSocket('ws://localhost:9980/echo')
+const socket = new WebSocket('ws://localhost:9990/chat')
 
-socket.addEventListener('open', () => {
-    socket.send('Conexão estabelecida') 
-})
 
 socket.addEventListener('message', (event) => {
-   // lblResponse.insertAdjacentHTML('beforeend', "<p><b>Servidor diz: </b>" + event.data + "</p>");
-   console.log(event.data)
+    const data = JSON.parse(event.data)
+    lblResponse.insertAdjacentHTML('beforeend', `<p>${data.nome} diz: ${data.mensagem}</p>`);
 })
 
 lblMessage.addEventListener('keyup', (event) => {
     if(event.keyCode === 13){
-        socket.send(lblMessage.value)
+        const data = {
+            nome: lblName.value,
+            mensagem: lblMessage.value,
+        }
+        socket.send(JSON.stringify(data))
         lblMessage.value = ''
     }
 })

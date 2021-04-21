@@ -1,14 +1,9 @@
 <?php
 
-require './vendor/autoload.php'; 
+require './vendor/autoload.php';
 
+use Chat\ChatServer;
 
-use Ratchet\Server\EchoServer;
-
-
-$app = new Ratchet\App('localhost', 9980);
-
-$app->route('/echo', new EchoServer, ['*']);
-
+$app = new Ratchet\App('localhost', 9990);
+$app->route('/chat', new ChatServer, ['*']);
 $app->run();
-
