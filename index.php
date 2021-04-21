@@ -11,6 +11,9 @@
         <input type="text" name="lblMessage" id="lblMessage"/>
         
 
+        
 
+
+        <script src="src/index.js"></script> 
 </body>
 </html>
